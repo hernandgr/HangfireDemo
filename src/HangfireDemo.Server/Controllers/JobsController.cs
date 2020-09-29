@@ -36,6 +36,15 @@ namespace HangfireDemo.Server.Controllers
         }
 
         [HttpPost]
+        [Route("error")]
+        public IActionResult Error()
+        {
+            _backgroundJobs.Enqueue<ExceptionJob>(x => x.DoWork());
+
+            return Ok();
+        }
+
+        [HttpPost]
         [Route("cron")]
         public IActionResult Cron()
         {
